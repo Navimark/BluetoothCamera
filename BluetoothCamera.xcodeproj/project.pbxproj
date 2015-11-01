@@ -1,0 +1,519 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		21F75BEE1BE621C700169DAF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F75BED1BE621C700169DAF /* main.m */; };
+		21F75BF11BE621C700169DAF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F75BF01BE621C700169DAF /* AppDelegate.m */; };
+		21F75BF41BE621C700169DAF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F75BF31BE621C700169DAF /* ViewController.m */; };
+		21F75BF71BE621C700169DAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21F75BF51BE621C700169DAF /* Main.storyboard */; };
+		21F75BF91BE621C700169DAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F75BF81BE621C700169DAF /* Assets.xcassets */; };
+		21F75BFC1BE621C700169DAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21F75BFA1BE621C700169DAF /* LaunchScreen.storyboard */; };
+		21F75C071BE621C700169DAF /* BluetoothCameraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F75C061BE621C700169DAF /* BluetoothCameraTests.m */; };
+		21F75C121BE621C700169DAF /* BluetoothCameraUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F75C111BE621C700169DAF /* BluetoothCameraUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		21F75C031BE621C700169DAF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21F75BE11BE621C700169DAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21F75BE81BE621C700169DAF;
+			remoteInfo = BluetoothCamera;
+		};
+		21F75C0E1BE621C700169DAF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21F75BE11BE621C700169DAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21F75BE81BE621C700169DAF;
+			remoteInfo = BluetoothCamera;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		21F75BE91BE621C700169DAF /* BluetoothCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21F75BED1BE621C700169DAF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		21F75BEF1BE621C700169DAF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		21F75BF01BE621C700169DAF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		21F75BF21BE621C700169DAF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		21F75BF31BE621C700169DAF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		21F75BF61BE621C700169DAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		21F75BF81BE621C700169DAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		21F75BFB1BE621C700169DAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		21F75BFD1BE621C700169DAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21F75C021BE621C700169DAF /* BluetoothCameraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothCameraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		21F75C061BE621C700169DAF /* BluetoothCameraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothCameraTests.m; sourceTree = "<group>"; };
+		21F75C081BE621C700169DAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21F75C0D1BE621C700169DAF /* BluetoothCameraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothCameraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		21F75C111BE621C700169DAF /* BluetoothCameraUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothCameraUITests.m; sourceTree = "<group>"; };
+		21F75C131BE621C700169DAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		21F75BE61BE621C700169DAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21F75BFF1BE621C700169DAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21F75C0A1BE621C700169DAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		21F75BE01BE621C700169DAF = {
+			isa = PBXGroup;
+			children = (
+				21F75BEB1BE621C700169DAF /* BluetoothCamera */,
+				21F75C051BE621C700169DAF /* BluetoothCameraTests */,
+				21F75C101BE621C700169DAF /* BluetoothCameraUITests */,
+				21F75BEA1BE621C700169DAF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		21F75BEA1BE621C700169DAF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				21F75BE91BE621C700169DAF /* BluetoothCamera.app */,
+				21F75C021BE621C700169DAF /* BluetoothCameraTests.xctest */,
+				21F75C0D1BE621C700169DAF /* BluetoothCameraUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		21F75BEB1BE621C700169DAF /* BluetoothCamera */ = {
+			isa = PBXGroup;
+			children = (
+				21F75BEF1BE621C700169DAF /* AppDelegate.h */,
+				21F75BF01BE621C700169DAF /* AppDelegate.m */,
+				21F75BF21BE621C700169DAF /* ViewController.h */,
+				21F75BF31BE621C700169DAF /* ViewController.m */,
+				21F75BF51BE621C700169DAF /* Main.storyboard */,
+				21F75BF81BE621C700169DAF /* Assets.xcassets */,
+				21F75BFA1BE621C700169DAF /* LaunchScreen.storyboard */,
+				21F75BFD1BE621C700169DAF /* Info.plist */,
+				21F75BEC1BE621C700169DAF /* Supporting Files */,
+			);
+			path = BluetoothCamera;
+			sourceTree = "<group>";
+		};
+		21F75BEC1BE621C700169DAF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				21F75BED1BE621C700169DAF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		21F75C051BE621C700169DAF /* BluetoothCameraTests */ = {
+			isa = PBXGroup;
+			children = (
+				21F75C061BE621C700169DAF /* BluetoothCameraTests.m */,
+				21F75C081BE621C700169DAF /* Info.plist */,
+			);
+			path = BluetoothCameraTests;
+			sourceTree = "<group>";
+		};
+		21F75C101BE621C700169DAF /* BluetoothCameraUITests */ = {
+			isa = PBXGroup;
+			children = (
+				21F75C111BE621C700169DAF /* BluetoothCameraUITests.m */,
+				21F75C131BE621C700169DAF /* Info.plist */,
+			);
+			path = BluetoothCameraUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		21F75BE81BE621C700169DAF /* BluetoothCamera */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21F75C161BE621C700169DAF /* Build configuration list for PBXNativeTarget "BluetoothCamera" */;
+			buildPhases = (
+				21F75BE51BE621C700169DAF /* Sources */,
+				21F75BE61BE621C700169DAF /* Frameworks */,
+				21F75BE71BE621C700169DAF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BluetoothCamera;
+			productName = BluetoothCamera;
+			productReference = 21F75BE91BE621C700169DAF /* BluetoothCamera.app */;
+			productType = "com.apple.product-type.application";
+		};
+		21F75C011BE621C700169DAF /* BluetoothCameraTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21F75C191BE621C700169DAF /* Build configuration list for PBXNativeTarget "BluetoothCameraTests" */;
+			buildPhases = (
+				21F75BFE1BE621C700169DAF /* Sources */,
+				21F75BFF1BE621C700169DAF /* Frameworks */,
+				21F75C001BE621C700169DAF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				21F75C041BE621C700169DAF /* PBXTargetDependency */,
+			);
+			name = BluetoothCameraTests;
+			productName = BluetoothCameraTests;
+			productReference = 21F75C021BE621C700169DAF /* BluetoothCameraTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		21F75C0C1BE621C700169DAF /* BluetoothCameraUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21F75C1C1BE621C700169DAF /* Build configuration list for PBXNativeTarget "BluetoothCameraUITests" */;
+			buildPhases = (
+				21F75C091BE621C700169DAF /* Sources */,
+				21F75C0A1BE621C700169DAF /* Frameworks */,
+				21F75C0B1BE621C700169DAF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				21F75C0F1BE621C700169DAF /* PBXTargetDependency */,
+			);
+			name = BluetoothCameraUITests;
+			productName = BluetoothCameraUITests;
+			productReference = 21F75C0D1BE621C700169DAF /* BluetoothCameraUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		21F75BE11BE621C700169DAF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = QiuShiBaiKe;
+				TargetAttributes = {
+					21F75BE81BE621C700169DAF = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					21F75C011BE621C700169DAF = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 21F75BE81BE621C700169DAF;
+					};
+					21F75C0C1BE621C700169DAF = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 21F75BE81BE621C700169DAF;
+					};
+				};
+			};
+			buildConfigurationList = 21F75BE41BE621C700169DAF /* Build configuration list for PBXProject "BluetoothCamera" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 21F75BE01BE621C700169DAF;
+			productRefGroup = 21F75BEA1BE621C700169DAF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				21F75BE81BE621C700169DAF /* BluetoothCamera */,
+				21F75C011BE621C700169DAF /* BluetoothCameraTests */,
+				21F75C0C1BE621C700169DAF /* BluetoothCameraUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		21F75BE71BE621C700169DAF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21F75BFC1BE621C700169DAF /* LaunchScreen.storyboard in Resources */,
+				21F75BF91BE621C700169DAF /* Assets.xcassets in Resources */,
+				21F75BF71BE621C700169DAF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21F75C001BE621C700169DAF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21F75C0B1BE621C700169DAF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		21F75BE51BE621C700169DAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21F75BF41BE621C700169DAF /* ViewController.m in Sources */,
+				21F75BF11BE621C700169DAF /* AppDelegate.m in Sources */,
+				21F75BEE1BE621C700169DAF /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21F75BFE1BE621C700169DAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21F75C071BE621C700169DAF /* BluetoothCameraTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21F75C091BE621C700169DAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21F75C121BE621C700169DAF /* BluetoothCameraUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		21F75C041BE621C700169DAF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21F75BE81BE621C700169DAF /* BluetoothCamera */;
+			targetProxy = 21F75C031BE621C700169DAF /* PBXContainerItemProxy */;
+		};
+		21F75C0F1BE621C700169DAF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21F75BE81BE621C700169DAF /* BluetoothCamera */;
+			targetProxy = 21F75C0E1BE621C700169DAF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		21F75BF51BE621C700169DAF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21F75BF61BE621C700169DAF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		21F75BFA1BE621C700169DAF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				21F75BFB1BE621C700169DAF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		21F75C141BE621C700169DAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		21F75C151BE621C700169DAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		21F75C171BE621C700169DAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BluetoothCamera/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.QiuShiBaiKe.BluetoothCamera;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		21F75C181BE621C700169DAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BluetoothCamera/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.QiuShiBaiKe.BluetoothCamera;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		21F75C1A1BE621C700169DAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BluetoothCameraTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.QiuShiBaiKe.BluetoothCameraTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothCamera.app/BluetoothCamera";
+			};
+			name = Debug;
+		};
+		21F75C1B1BE621C700169DAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BluetoothCameraTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.QiuShiBaiKe.BluetoothCameraTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothCamera.app/BluetoothCamera";
+			};
+			name = Release;
+		};
+		21F75C1D1BE621C700169DAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BluetoothCameraUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.QiuShiBaiKe.BluetoothCameraUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = BluetoothCamera;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		21F75C1E1BE621C700169DAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BluetoothCameraUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.QiuShiBaiKe.BluetoothCameraUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = BluetoothCamera;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		21F75BE41BE621C700169DAF /* Build configuration list for PBXProject "BluetoothCamera" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21F75C141BE621C700169DAF /* Debug */,
+				21F75C151BE621C700169DAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21F75C161BE621C700169DAF /* Build configuration list for PBXNativeTarget "BluetoothCamera" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21F75C171BE621C700169DAF /* Debug */,
+				21F75C181BE621C700169DAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		21F75C191BE621C700169DAF /* Build configuration list for PBXNativeTarget "BluetoothCameraTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21F75C1A1BE621C700169DAF /* Debug */,
+				21F75C1B1BE621C700169DAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		21F75C1C1BE621C700169DAF /* Build configuration list for PBXNativeTarget "BluetoothCameraUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21F75C1D1BE621C700169DAF /* Debug */,
+				21F75C1E1BE621C700169DAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 21F75BE11BE621C700169DAF /* Project object */;
+}
