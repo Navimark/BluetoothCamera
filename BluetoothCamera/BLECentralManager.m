@@ -19,6 +19,8 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
 @property (nonatomic) BOOL startScanWhenReady;
 @property (nonatomic , strong) CBUUID *targetUUID;
 
+//@property (nonatomic , strong) NSMutableDictionary *imageClipDict;
+
 @end
 
 @implementation BLECentralManager
@@ -163,6 +165,10 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
             NSLog(@"监听characteristic = %@",characteristic);
             [peripheral setNotifyValue:YES forCharacteristic:characteristic];
         }
+//        else if (characteristic.properties == CBCharacteristicPropertyRead &&
+//                   [characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFFF"]]) {
+//            [peripheral readValueForCharacteristic:characteristic];
+//        }
     }
 }
 
@@ -182,37 +188,39 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
         NSLog(@"Error didUpdateValueForCharacteristic characteristics: %@,characteristic=%@", error,characteristic);
         return;
     }
-    if (self.totalReceviedImageData == nil) {
-        self.totalReceviedImageData = [NSMutableData data];
-    }
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFFF"]]) {
-        NSLog(@"收到进度数据:%@",characteristic.value);
-        NSData *data = characteristic.value;
-        const char*   pos =  [data bytes];
-        NSInteger  a = -1;
-        memcpy(&a, pos, sizeof(int));
-        if (self.updatePercentHandler) {
-            self.updatePercentHandler(a);
-        }
-    }
+
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"DDDD"]]) {
-        NSData *batchImageData = [characteristic.value subdataWithRange:NSMakeRange(0, characteristic.value.length - 2)];
-        NSData *indexData = [characteristic.value subdataWithRange:NSMakeRange(characteristic.value.length - 2, 2)];
-        Byte *indexArr = (Byte *)[indexData bytes];
+        NSData *batchImageData = [characteristic.value subdataWithRange:NSMakeRange(0, characteristic.value.length - 3)];
+        NSData *indexAndPercentData = [characteristic.value subdataWithRange:NSMakeRange(characteristic.value.length - 3, 3)];
+        Byte *indexArr = (Byte *)[indexAndPercentData bytes];
         
         //用16进制表示packageIndex，高八位放在pi[0]，低八位放在pi[1]
-        
-//        Byte pi[2] = {(packageIndex | 0xff00) >> 8,packageIndex | 0x00ff};
         NSInteger index = indexArr[0];
         index = index << 8;
         index = index | indexArr[1];
-        NSLog(@"序号:%@,收到图片数据:%@",@(index),batchImageData);
+        NSInteger percent = indexArr[2];
+
+        if (index == 0) {
+            self.totalReceviedImageData = [NSMutableData data];
+        }
+        if (self.updatePercentHandler) {
+            self.updatePercentHandler(percent * 0.01);
+        }
+
+        [self.totalReceviedImageData appendData:batchImageData];
         
+        if (percent - 100 == 0) {
+            NSLog(@"percent = %@",@(percent));
+            if (self.receviedTotoallyImageDataHandler) {
+                self.receviedTotoallyImageDataHandler(self.totalReceviedImageData);
+            }
+        }
+        NSLog(@"percent = %@,序号:%@,(%x,%x),一个完整数据包:%@,",@(percent),@(index),indexArr[0],indexArr[1],characteristic.value);
     }
     
-    NSData *data = characteristic.value;
-    NSString *string = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"UUID = %@,DATA = %@,String = %@",characteristic.UUID.UUIDString,[self.class getFormattedStringFromData:characteristic.value],string);
+//    NSData *data = characteristic.value;
+//    NSString *string = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+//        NSLog(@"UUID = %@,DATA = %@,String = %@",characteristic.UUID.UUIDString,[self.class getFormattedStringFromData:characteristic.value],string);
 }
 
 + (NSString *)getFormattedStringFromData:(NSData *)data

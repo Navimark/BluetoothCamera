@@ -32,6 +32,7 @@ typedef NS_ENUM(NSInteger,ViewType) {
 @property (weak, nonatomic) IBOutlet UIButton *shootButton;
 @property (weak, nonatomic) IBOutlet UIView *imageFrameView;
 @property (nonatomic , strong) BLECentralManager *centralManager;
+@property (weak, nonatomic) IBOutlet UIImageView *receviedImageView;
 
 @end
 
@@ -111,8 +112,18 @@ typedef NS_ENUM(NSInteger,ViewType) {
     } else {
         self.imageFrameView.hidden = NO;
         self.preView.hidden = YES;
-//        [self.centralManager startSearchingWithServiceUUIDsWhenReady:@[self.peripheralManager.broadcastIdentifyKey]];
-        [self.centralManager startSearchingWithServiceUUIDsWhenReady:nil];
+        [self.centralManager startSearchingWithServiceUUIDsWhenReady:@[self.peripheralManager.broadcastIdentifyKey]];
+        __weak __typeof(self)weakSelf = self;
+        self.centralManager.receviedTotoallyImageDataHandler = ^(NSData *imageData){
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIImage *image = [UIImage imageWithData:imageData];
+                strongSelf.receviedImageView.image = image;
+            });
+        };
+        self.centralManager.updatePercentHandler = ^(CGFloat percent){
+            NSLog(@"主界面上更新进度为:%@",@(percent));
+        };
     }
 }
 //
