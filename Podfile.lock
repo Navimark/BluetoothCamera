@@ -1,4 +1,12 @@
 PODS:
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
   - pop (1.0.8)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
@@ -10,11 +18,13 @@ PODS:
   - SCRecorder (2.6.1)
 
 DEPENDENCIES:
+  - CocoaLumberjack (~> 2.2.0)
   - pop (~> 1.0.8)
   - ReactiveCocoa (~> 2.5)
   - SCRecorder (~> 2.6.1)
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SCRecorder: ef11bc34094c43201cc7c94fa9aeb5266e5b9cf7

@@ -210,17 +210,20 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
         [self.totalReceviedImageData appendData:batchImageData];
         
         if (percent - 100 == 0) {
-            NSLog(@"percent = %@",@(percent));
+//            NSLog(@"percent = %@",@(percent));
             if (self.receviedTotoallyImageDataHandler) {
                 self.receviedTotoallyImageDataHandler(self.totalReceviedImageData);
             }
         }
-        NSLog(@"percent = %@,序号:%@,(%x,%x),一个完整数据包:%@,",@(percent),@(index),indexArr[0],indexArr[1],characteristic.value);
+//        NSLog(@"percent = %@,序号:%@,(%x,%x),一个完整数据包:%@,",@(percent),@(index),indexArr[0],indexArr[1],characteristic.value);
     }
     
-//    NSData *data = characteristic.value;
-//    NSString *string = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    NSData *data = characteristic.value;
+    NSString *string = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
 //        NSLog(@"UUID = %@,DATA = %@,String = %@",characteristic.UUID.UUIDString,[self.class getFormattedStringFromData:characteristic.value],string);
+    
+    NSData *indexAndPercentData = [characteristic.value subdataWithRange:NSMakeRange(characteristic.value.length - 3, 3)];
+    NSLog(@"indexAndPercentData = %@",indexAndPercentData);
 }
 
 + (NSString *)getFormattedStringFromData:(NSData *)data

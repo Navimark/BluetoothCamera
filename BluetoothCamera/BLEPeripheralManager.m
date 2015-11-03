@@ -84,66 +84,71 @@ static NSString *const kAdIdentifyKey = @"B7A1";
     
     self.sendDataSemaphore = dispatch_semaphore_create(0);
 }
-
+//TODO：检查发送的地方，发送的data和原来的data是否相等。将发送的data保存成文件，看看能不能恢复成图片
+//可能是最后一组数据有问题
 - (void)startSendImage
 {
     NSData *imageData = UIImageJPEGRepresentation(self.image, 0.6);
     NSUInteger totalLength = [imageData length];
     
-    NSUInteger sentSize = 0;
-    NSUInteger loc = 0;
-    
+    NSUInteger location = 0;
     NSUInteger packageIndex = 0;
-    while (sentSize < totalLength) {
+    
+//    NSMutableData *coverdImageData = [NSMutableData data];
+    
+    while (location < totalLength) {
         NSUInteger maxBatchSize = [self.activeCentral maximumUpdateValueLength] - 3;//留出2个byte位置，作为index，最后一个为percent
         NSData *batchImageData = nil;
         NSUInteger oneTimeSize = 0;
         
-        if (totalLength - sentSize < maxBatchSize) {
+        if (totalLength - location < maxBatchSize) {
             //发送(totalLength - sentSize)大小的
-            oneTimeSize = totalLength - sentSize;
+            oneTimeSize = totalLength - location;
         } else {
             oneTimeSize = maxBatchSize;
         }
         
-        batchImageData = [imageData subdataWithRange:NSMakeRange(loc, oneTimeSize)];
-        
+        batchImageData = [imageData subdataWithRange:NSMakeRange(location, oneTimeSize)];
+        location = (location + oneTimeSize);
+//        [coverdImageData appendData:batchImageData];
         NSMutableData *tData = [NSMutableData dataWithData:batchImageData];
         
         //用16进制表示packageIndex，高八位放在pi[0]，低八位放在pi[1]，进度(一定小于0xff)放在pi[2]
-        NSInteger percent = (sentSize * 1.0f / totalLength) * 100;
+        NSInteger percent = (location * 1.0f / totalLength) * 100;
         Byte pi[3] = {packageIndex >> 8,packageIndex & 0x00ff,percent};
         [tData appendBytes:pi length:3];
         
         batchImageData = tData;
         
-        loc = (loc + oneTimeSize);
-        
         BOOL sendImageSucc = [self.peripheralManager updateValue:batchImageData
                           forCharacteristic:self.senderCharacteristic onSubscribedCentrals:@[self.activeCentral]];
         if (!sendImageSucc) {
-            NSLog(@"发送image数据堵塞了");
+//            NSLog(@"发送image数据堵塞了");
             dispatch_semaphore_wait(self.sendDataSemaphore, DISPATCH_TIME_FOREVER);
         }
-        NSLog(@"成功发送数据batchImageData = %@,packageIndex = %@,(%x,%x),发送进度 = %@",batchImageData,@(packageIndex),pi[0],pi[1],@(percent));
-        
-        sentSize = loc + oneTimeSize;
         packageIndex ++;
+        NSLog(@"成功发送数据location = %@,oneTimeSizeLength = %@,(总长度:%@),packageIndex = %@,发送进度 = %@",@(location),@(oneTimeSize),@(totalLength),@(packageIndex),@(percent));
+        [NSThread sleepForTimeInterval:0.05];
     }
-    Byte endData[3] = {0xff,0xff,100};
-    BOOL sendImageSucc = [self.peripheralManager updateValue:[NSData dataWithBytes:endData length:3]
-                                           forCharacteristic:self.senderCharacteristic onSubscribedCentrals:@[self.activeCentral]];
-    if (!sendImageSucc) {
-        NSLog(@"更新最后的进度为100%%堵塞了");
-        dispatch_semaphore_wait(self.sendDataSemaphore, DISPATCH_TIME_FOREVER);
-    }
-    BOOL dd = [self.peripheralManager updateValue:[NSData dataWithBytes:endData length:3]
-                                           forCharacteristic:self.senderCharacteristic onSubscribedCentrals:@[self.activeCentral]];
-    if (!dd) {
-        NSLog(@"更新最后的进度为100%%堵塞了");
-        dispatch_semaphore_wait(self.sendDataSemaphore, DISPATCH_TIME_FOREVER);
-    }
-    NSLog(@"发送最后的进度为100%%,sentSize = %@,totalLength = %@",@(sentSize),@(totalLength));
+    
+//    UIImage *image = [UIImage imageWithData:coverdImageData];
+//    NSLog(@"image = %@",image);
+//    
+//    //这里断点，接受一个重新组装的ImageData，测试是否能还原成Image
+//    Byte endData[3] = {0xff,0xff,100};
+//    BOOL sendImageSucc = [self.peripheralManager updateValue:[NSData dataWithBytes:endData length:3]
+//                                           forCharacteristic:self.senderCharacteristic onSubscribedCentrals:@[self.activeCentral]];
+//    if (!sendImageSucc) {
+//        NSLog(@"更新最后的进度为100%%堵塞了");
+//        dispatch_semaphore_wait(self.sendDataSemaphore, DISPATCH_TIME_FOREVER);
+//    }
+//    BOOL dd = [self.peripheralManager updateValue:[NSData dataWithBytes:endData length:3]
+//                                           forCharacteristic:self.senderCharacteristic onSubscribedCentrals:@[self.activeCentral]];
+//    if (!dd) {
+//        NSLog(@"更新最后的进度为100%%堵塞了");
+//        dispatch_semaphore_wait(self.sendDataSemaphore, DISPATCH_TIME_FOREVER);
+//    }
+//    NSLog(@"发送最后的进度为100%%,totalLength = %@",@(totalLength));
 //    发送最后的进度为100%,sentSize = 20716,totalLength = 20645
     self.readyToSendImage = NO;
 }

@@ -97,7 +97,7 @@ typedef NS_ENUM(NSInteger,ViewType) {
         @weakify(self);
         [[RACObserve(self.peripheralManager, readyToSendImage) deliverOnMainThread] subscribeNext:^(NSNumber *x) {
             @strongify(self);
-            [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"搞什么%@",x] message:nil delegate:nil cancelButtonTitle:@"去洗哦啊 " otherButtonTitles:nil, nil] show];
+ //           [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"搞什么%@",x] message:nil delegate:nil cancelButtonTitle:@"去洗哦啊 " otherButtonTitles:nil, nil] show];
             if (!x.boolValue) {
                 return ;
             }

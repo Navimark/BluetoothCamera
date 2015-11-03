@@ -8,6 +8,7 @@ target 'BluetoothCamera' do
     pod 'pop', '~> 1.0.8'
     pod 'ReactiveCocoa', '~> 2.5'
     pod 'SCRecorder', '~> 2.6.1'
+    pod 'CocoaLumberjack', '~> 2.2.0'
 end
 
 target 'BluetoothCameraTests' do

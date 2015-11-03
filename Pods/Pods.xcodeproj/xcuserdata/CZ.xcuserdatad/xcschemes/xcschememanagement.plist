@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CocoaLumberjack.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-BluetoothCamera.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>8106ED12F7BADE9EF2CCB0BD7418C19D</key>
+		<key>12E2BC28C62976C425F4B71C2723F0B1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BEA4802DC6E632548AF49D302BB7E24B</key>
+		<key>941A0CF44B3839A1CAFD0F528468DAA8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D9A8892EBDCE8B4248D154D5B8A25805</key>
+		<key>9E2FA5469E87F7D7087B34B5BC01AF67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EA5D74F6AA458260A05931317DAD5B15</key>
+		<key>A37E2CB8D963B4B80E92919498DDA50C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CFC7D64266CA67DD3AEFF54828460634</key>
 		<dict>
 			<key>primary</key>
 			<true/>
