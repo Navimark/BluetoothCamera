@@ -30,6 +30,8 @@ static NSString *const kAdIdentifyKey = @"B7A1";
 @property (nonatomic) BOOL isSending;
 @property (nonatomic , strong) dispatch_semaphore_t sendDataSemaphore;
 
+@property (nonatomic , strong) NSDictionary *advertisingDataDict;
+
 @end
 
 @implementation BLEPeripheralManager
@@ -130,27 +132,8 @@ static NSString *const kAdIdentifyKey = @"B7A1";
         NSLog(@"成功发送数据location = %@,oneTimeSizeLength = %@,(总长度:%@),packageIndex = %@,发送进度 = %@",@(location),@(oneTimeSize),@(totalLength),@(packageIndex),@(percent));
         [NSThread sleepForTimeInterval:0.05];
     }
-    
-//    UIImage *image = [UIImage imageWithData:coverdImageData];
-//    NSLog(@"image = %@",image);
-//    
-//    //这里断点，接受一个重新组装的ImageData，测试是否能还原成Image
-//    Byte endData[3] = {0xff,0xff,100};
-//    BOOL sendImageSucc = [self.peripheralManager updateValue:[NSData dataWithBytes:endData length:3]
-//                                           forCharacteristic:self.senderCharacteristic onSubscribedCentrals:@[self.activeCentral]];
-//    if (!sendImageSucc) {
-//        NSLog(@"更新最后的进度为100%%堵塞了");
-//        dispatch_semaphore_wait(self.sendDataSemaphore, DISPATCH_TIME_FOREVER);
-//    }
-//    BOOL dd = [self.peripheralManager updateValue:[NSData dataWithBytes:endData length:3]
-//                                           forCharacteristic:self.senderCharacteristic onSubscribedCentrals:@[self.activeCentral]];
-//    if (!dd) {
-//        NSLog(@"更新最后的进度为100%%堵塞了");
-//        dispatch_semaphore_wait(self.sendDataSemaphore, DISPATCH_TIME_FOREVER);
-//    }
-//    NSLog(@"发送最后的进度为100%%,totalLength = %@",@(totalLength));
-//    发送最后的进度为100%,sentSize = 20716,totalLength = 20645
     self.readyToSendImage = NO;
+    [self.peripheralManager startAdvertising:self.advertisingDataDict];
 }
 
 #pragma mark - CBPeripheralManagerDelegate
@@ -163,11 +146,11 @@ static NSString *const kAdIdentifyKey = @"B7A1";
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error
 {
     if (error == nil) {
-        NSDictionary *adDict = @{CBAdvertisementDataLocalNameKey:kAdIdentifyKey,
+        self.advertisingDataDict = @{CBAdvertisementDataLocalNameKey:kAdIdentifyKey,
                                  CBAdvertisementDataServiceUUIDsKey:@[[CBUUID UUIDWithString:kSendPhotoServiceUUIDString]],
                                  CBAdvertisementDataIsConnectable:@(YES)};
-        NSLog(@"开始广播adDict = %@",adDict);
-        [self.peripheralManager startAdvertising:adDict];
+        NSLog(@"开始广播adDict = %@",self.advertisingDataDict);
+        [self.peripheralManager startAdvertising:self.advertisingDataDict];
     } else {
         NSLog(@"%s,error = %@",__PRETTY_FUNCTION__,error);
     }
@@ -186,12 +169,18 @@ static NSString *const kAdIdentifyKey = @"B7A1";
     [self.peripheralManager stopAdvertising];
     NSLog(@"已经有central=%@设备接受了服务，我们要给它生成动态数据\n连接请求,%s,,characteristic = %@",central,__PRETTY_FUNCTION__,characteristic);
     self.activeCentral = central;
-    self.readyToSendImage = YES;
-    self.isSending = YES;
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
 {
+    if ([request.characteristic.UUID isEqual:[CBUUID UUIDWithString:kReadImageCharacteristicUUIDString]]) {
+//        NSString *mainString = [NSString stringWithFormat:@"GN123"];
+//        NSData *cmainData= [mainString dataUsingEncoding:NSUTF8StringEncoding];
+//        request.value = cmainData;
+        [peripheral respondToRequest:request withResult:CBATTErrorSuccess];
+        self.readyToSendImage = YES;
+        self.isSending = YES;
+    }
     NSLog(@"%s,request = %@",__PRETTY_FUNCTION__,request);
 }
 

@@ -29,5 +29,6 @@
 - (void)startSearchingWithServiceUUIDsWhenReady:(NSArray *)services;
 - (void)cleanUpConnection;
 
+- (void)requestForNewImageData;
 
 @end

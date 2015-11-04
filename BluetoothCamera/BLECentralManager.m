@@ -19,7 +19,7 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
 @property (nonatomic) BOOL startScanWhenReady;
 @property (nonatomic , strong) CBUUID *targetUUID;
 
-//@property (nonatomic , strong) NSMutableDictionary *imageClipDict;
+@property (nonatomic , strong) CBCharacteristic *readImageDataCharacteristic;
 
 @end
 
@@ -77,6 +77,11 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
     }
     NSLog(@"开始搜索servicesArray = %@",servicesArray);
     [self.centralManager scanForPeripheralsWithServices:servicesArray options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES }];
+}
+
+- (void)requestForNewImageData
+{
+    [self.activePeripheral readValueForCharacteristic:self.readImageDataCharacteristic];
 }
 
 #pragma mark - CBCentralManagerDelegate
@@ -165,16 +170,16 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
             NSLog(@"监听characteristic = %@",characteristic);
             [peripheral setNotifyValue:YES forCharacteristic:characteristic];
         }
-//        else if (characteristic.properties == CBCharacteristicPropertyRead &&
-//                   [characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFFF"]]) {
-//            [peripheral readValueForCharacteristic:characteristic];
-//        }
+        else if (characteristic.properties == CBCharacteristicPropertyRead &&
+                   [characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFFF"]]) {
+            self.readImageDataCharacteristic = characteristic;
+        }
     }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    NSLog(@"血糖写入errror = %@",error);
+    NSLog(@"errror = %@",error);
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -200,6 +205,12 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
         index = index | indexArr[1];
         NSInteger percent = indexArr[2];
 
+        //TODO:
+        /*
+         1、每收到一包，回传index应答
+         2、对每一包进行校验，保证数据完整性
+         3、对收到的包按照index排序，再合并成data
+         */
         if (index == 0) {
             self.totalReceviedImageData = [NSMutableData data];
         }
@@ -210,7 +221,6 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
         [self.totalReceviedImageData appendData:batchImageData];
         
         if (percent - 100 == 0) {
-//            NSLog(@"percent = %@",@(percent));
             if (self.receviedTotoallyImageDataHandler) {
                 self.receviedTotoallyImageDataHandler(self.totalReceviedImageData);
             }
@@ -220,10 +230,7 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
     
     NSData *data = characteristic.value;
     NSString *string = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-//        NSLog(@"UUID = %@,DATA = %@,String = %@",characteristic.UUID.UUIDString,[self.class getFormattedStringFromData:characteristic.value],string);
-    
-    NSData *indexAndPercentData = [characteristic.value subdataWithRange:NSMakeRange(characteristic.value.length - 3, 3)];
-    NSLog(@"indexAndPercentData = %@",indexAndPercentData);
+        NSLog(@"UUID = %@,DATA = %@,String = %@",characteristic.UUID.UUIDString,[self.class getFormattedStringFromData:characteristic.value],string);
 }
 
 + (NSString *)getFormattedStringFromData:(NSData *)data

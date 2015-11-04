@@ -129,6 +129,9 @@ typedef NS_ENUM(NSInteger,ViewType) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSString *percentTextValue = [NSString stringWithFormat:@"%.0f%%",percent * 100];
                 strongSelf.progressLabel.text = percentTextValue;
+                if (percent - 1 == 0) {
+                    strongSelf.shootButton.hidden = NO;
+                }
             });
         };
     }
@@ -137,7 +140,11 @@ typedef NS_ENUM(NSInteger,ViewType) {
 #pragma mark - Action
 - (IBAction)shootButtonAction:(UIButton *)sender
 {
-    //向peripheral发送request，拍照，
+    //向peripheral发送request，拍照
+    self.receviedImageView.image = nil;
+    sender.hidden = YES;
+    self.progressLabel.text = @"0%";
+    [self.centralManager requestForNewImageData];
 }
 
 
