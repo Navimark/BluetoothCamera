@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger,ViewType) {
 @property (weak, nonatomic) IBOutlet UIView *imageFrameView;
 @property (nonatomic , strong) BLECentralManager *centralManager;
 @property (weak, nonatomic) IBOutlet UIImageView *receviedImageView;
+@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 
 @end
 
@@ -56,6 +57,7 @@ typedef NS_ENUM(NSInteger,ViewType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.progressLabel.text = @"";
     // Do any additional setup after loading the view, typically from a nib.
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"请选择工作模式" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"遥控器模式",@"摄像机模式", nil];
     @weakify(self);
@@ -97,7 +99,6 @@ typedef NS_ENUM(NSInteger,ViewType) {
         @weakify(self);
         [[RACObserve(self.peripheralManager, readyToSendImage) deliverOnMainThread] subscribeNext:^(NSNumber *x) {
             @strongify(self);
- //           [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"搞什么%@",x] message:nil delegate:nil cancelButtonTitle:@"去洗哦啊 " otherButtonTitles:nil, nil] show];
             if (!x.boolValue) {
                 return ;
             }
@@ -110,6 +111,7 @@ typedef NS_ENUM(NSInteger,ViewType) {
             }];
         }];
     } else {
+        self.shootButton.hidden = NO;
         self.imageFrameView.hidden = NO;
         self.preView.hidden = YES;
         [self.centralManager startSearchingWithServiceUUIDsWhenReady:@[self.peripheralManager.broadcastIdentifyKey]];
@@ -123,15 +125,19 @@ typedef NS_ENUM(NSInteger,ViewType) {
         };
         self.centralManager.updatePercentHandler = ^(CGFloat percent){
             NSLog(@"主界面上更新进度为:%@",@(percent));
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString *percentTextValue = [NSString stringWithFormat:@"%.0f%%",percent * 100];
+                strongSelf.progressLabel.text = percentTextValue;
+            });
         };
     }
 }
-//
-//2765BD69-B7A1-4EB1-B2DF-23062E99062A
+
 #pragma mark - Action
 - (IBAction)shootButtonAction:(UIButton *)sender
 {
-    //想peripheral发送request，拍照，
+    //向peripheral发送request，拍照，
 }
 
 
