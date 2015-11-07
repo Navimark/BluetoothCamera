@@ -19,6 +19,7 @@
 @property (nonatomic , strong) NSMutableData *totalReceviedImageData;
 @property (nonatomic , copy) void(^updatePercentHandler)(CGFloat percent);
 @property (nonatomic , copy) void(^receviedTotoallyImageDataHandler)(NSData *imageData);
+@property (nonatomic , copy) void(^receviedIncrementalImageHandler)(UIImage *image);
 
 /**
  *  开始搜索服务

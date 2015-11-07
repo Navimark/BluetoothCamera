@@ -8,6 +8,8 @@
 
 #import "BLECentralManager.h"
 
+@import ImageIO;
+
 static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentralManager";
 
 @interface BLECentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate>
@@ -20,6 +22,7 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
 @property (nonatomic , strong) CBUUID *targetUUID;
 
 @property (nonatomic , strong) CBCharacteristic *readImageDataCharacteristic;
+@property (nonatomic) CGImageSourceRef receivedImageSourceRef;
 
 @end
 
@@ -212,7 +215,10 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
          3、对收到的包按照index排序，再合并成data
          */
         if (index == 0) {
-            self.totalReceviedImageData = [NSMutableData data];
+            @autoreleasepool {
+                self.totalReceviedImageData = [NSMutableData data];
+                self.receivedImageSourceRef = CGImageSourceCreateIncremental(NULL);
+            }
         }
         if (self.updatePercentHandler) {
             self.updatePercentHandler(percent * 0.01);
@@ -220,10 +226,25 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
 
         [self.totalReceviedImageData appendData:batchImageData];
         
+        
+        
         if (percent - 100 == 0) {
+            CGImageSourceUpdateData(self.receivedImageSourceRef, (CFDataRef)self.totalReceviedImageData, YES);
+            CGImageRef imageRef = CGImageSourceCreateImageAtIndex(self.receivedImageSourceRef, 0, NULL);
+            if (self.receviedIncrementalImageHandler) {
+                self.receviedIncrementalImageHandler([UIImage imageWithCGImage:imageRef]);
+            }
+            CGImageRelease(imageRef);
             if (self.receviedTotoallyImageDataHandler) {
                 self.receviedTotoallyImageDataHandler(self.totalReceviedImageData);
             }
+        } else {
+            CGImageSourceUpdateData(self.receivedImageSourceRef, (CFDataRef)self.totalReceviedImageData, NO);
+            CGImageRef imageRef = CGImageSourceCreateImageAtIndex(self.receivedImageSourceRef, 0, NULL);
+            if (self.receviedIncrementalImageHandler) {
+                self.receviedIncrementalImageHandler([UIImage imageWithCGImage:imageRef]);
+            }
+            CGImageRelease(imageRef);
         }
 //        NSLog(@"percent = %@,序号:%@,(%x,%x),一个完整数据包:%@,",@(percent),@(index),indexArr[0],indexArr[1],characteristic.value);
     }
