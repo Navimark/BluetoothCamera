@@ -106,7 +106,7 @@ typedef NS_ENUM(NSInteger,ViewType) {
             [self.recorder capturePhoto:^(NSError * _Nullable error, UIImage * _Nullable image) {
                 __strong __typeof(weakSelf)strongSelf = weakSelf;
                 if (image != nil) {
-                    strongSelf.peripheralManager.image = [UIImage resizeImage:image toSize:CGSizeMake(800, 800)];
+                    strongSelf.peripheralManager.image = [UIImage resizeImage:image toSize:CGSizeMake(800, 1400)];
                 }
             }];
         }];
@@ -116,26 +116,22 @@ typedef NS_ENUM(NSInteger,ViewType) {
         self.preView.hidden = YES;
         [self.centralManager startSearchingWithServiceUUIDsWhenReady:@[self.peripheralManager.broadcastIdentifyKey]];
         __weak __typeof(self)weakSelf = self;
-//        self.centralManager.receviedTotoallyImageDataHandler = ^(NSData *imageData){
-//            __strong __typeof(weakSelf)strongSelf = weakSelf;
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                UIImage *image = [UIImage imageWithData:imageData];
-//                strongSelf.receviedImageView.image = image;
-//            });
-//        };
         self.centralManager.receviedIncrementalImageHandler = ^(UIImage *image){
             __strong __typeof(weakSelf)strongSelf = weakSelf;
             dispatch_async(dispatch_get_main_queue(), ^{
-                strongSelf.receviedImageView.image = image;
+                @autoreleasepool {
+                    strongSelf.receviedImageView.image = image;
+                }
             });
 
         };
         self.centralManager.updatePercentHandler = ^(CGFloat percent){
-            NSLog(@"主界面上更新进度为:%@",@(percent));
             __strong __typeof(weakSelf)strongSelf = weakSelf;
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *percentTextValue = [NSString stringWithFormat:@"%.0f%%",percent * 100];
-                strongSelf.progressLabel.text = percentTextValue;
+                @autoreleasepool {
+                    NSString *percentTextValue = [NSString stringWithFormat:@"%.0f%%",percent * 100];
+                    strongSelf.progressLabel.text = percentTextValue;
+                }
                 if (percent - 1 == 0) {
                     strongSelf.shootButton.hidden = NO;
                 }

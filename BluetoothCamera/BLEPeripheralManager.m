@@ -90,7 +90,7 @@ static NSString *const kAdIdentifyKey = @"B7A1";
 //可能是最后一组数据有问题
 - (void)startSendImage
 {
-    NSData *imageData = UIImageJPEGRepresentation(self.image, 0.6);
+    NSData *imageData = UIImageJPEGRepresentation(self.image, 0.01);
     NSUInteger totalLength = [imageData length];
     
     NSUInteger location = 0;

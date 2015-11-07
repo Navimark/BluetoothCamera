@@ -217,6 +217,10 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
         if (index == 0) {
             @autoreleasepool {
                 self.totalReceviedImageData = [NSMutableData data];
+                if (self.receivedImageSourceRef != NULL) {
+                    CFRelease(self.receivedImageSourceRef);
+                    self.receivedImageSourceRef = NULL;
+                }
                 self.receivedImageSourceRef = CGImageSourceCreateIncremental(NULL);
             }
         }
@@ -226,8 +230,6 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
 
         [self.totalReceviedImageData appendData:batchImageData];
         
-        
-        
         if (percent - 100 == 0) {
             CGImageSourceUpdateData(self.receivedImageSourceRef, (CFDataRef)self.totalReceviedImageData, YES);
             CGImageRef imageRef = CGImageSourceCreateImageAtIndex(self.receivedImageSourceRef, 0, NULL);
@@ -235,6 +237,12 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
                 self.receviedIncrementalImageHandler([UIImage imageWithCGImage:imageRef]);
             }
             CGImageRelease(imageRef);
+            @autoreleasepool {
+                if (self.receivedImageSourceRef != NULL) {
+                    CFRelease(self.receivedImageSourceRef);
+                    self.receivedImageSourceRef = NULL;
+                }
+            }
             if (self.receviedTotoallyImageDataHandler) {
                 self.receviedTotoallyImageDataHandler(self.totalReceviedImageData);
             }
