@@ -207,13 +207,7 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
         index = index << 8;
         index = index | indexArr[1];
         NSInteger percent = indexArr[2];
-
-        //TODO:
-        /*
-         1、每收到一包，回传index应答
-         2、对每一包进行校验，保证数据完整性
-         3、对收到的包按照index排序，再合并成data
-         */
+        
         if (index == 0) {
             @autoreleasepool {
                 self.totalReceviedImageData = [NSMutableData data];
@@ -275,13 +269,7 @@ static NSString *const kCentralQueueCreateLabel = @"com.QiuShiBaiKe.xx.BLECentra
             else
                 hexStr = [NSString stringWithFormat:@"%@%@",hexStr,newHexStr];
         }
-        
-        //        for(int i=0;i<[data length];i++)
-        //            printf("。%d,",testByte[i]);
-        //        putchar('\n');
-        //        string = [NSString stringWithFormat:@"HEX串:%@,长度:%ld",hexStr,[data length]];
         string = [NSString stringWithFormat:@"%@",hexStr];
-        //        NSLog(@"%@",string);
     }
     return string;
 }

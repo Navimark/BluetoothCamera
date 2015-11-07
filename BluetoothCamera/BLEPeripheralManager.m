@@ -86,8 +86,7 @@ static NSString *const kAdIdentifyKey = @"B7A1";
     
     self.sendDataSemaphore = dispatch_semaphore_create(0);
 }
-//TODO：检查发送的地方，发送的data和原来的data是否相等。将发送的data保存成文件，看看能不能恢复成图片
-//可能是最后一组数据有问题
+
 - (void)startSendImage
 {
     NSData *imageData = UIImageJPEGRepresentation(self.image, 0.01);
@@ -95,8 +94,6 @@ static NSString *const kAdIdentifyKey = @"B7A1";
     
     NSUInteger location = 0;
     NSUInteger packageIndex = 0;
-    
-//    NSMutableData *coverdImageData = [NSMutableData data];
     
     while (location < totalLength) {
         NSUInteger maxBatchSize = [self.activeCentral maximumUpdateValueLength] - 3;//留出2个byte位置，作为index，最后一个为percent
@@ -112,7 +109,6 @@ static NSString *const kAdIdentifyKey = @"B7A1";
         
         batchImageData = [imageData subdataWithRange:NSMakeRange(location, oneTimeSize)];
         location = (location + oneTimeSize);
-//        [coverdImageData appendData:batchImageData];
         NSMutableData *tData = [NSMutableData dataWithData:batchImageData];
         
         //用16进制表示packageIndex，高八位放在pi[0]，低八位放在pi[1]，进度(一定小于0xff)放在pi[2]
@@ -125,11 +121,10 @@ static NSString *const kAdIdentifyKey = @"B7A1";
         BOOL sendImageSucc = [self.peripheralManager updateValue:batchImageData
                           forCharacteristic:self.senderCharacteristic onSubscribedCentrals:@[self.activeCentral]];
         if (!sendImageSucc) {
-//            NSLog(@"发送image数据堵塞了");
             dispatch_semaphore_wait(self.sendDataSemaphore, DISPATCH_TIME_FOREVER);
         }
         packageIndex ++;
-        NSLog(@"成功发送数据location = %@,oneTimeSizeLength = %@,(总长度:%@),packageIndex = %@,发送进度 = %@",@(location),@(oneTimeSize),@(totalLength),@(packageIndex),@(percent));
+//        NSLog(@"成功发送数据location = %@,oneTimeSizeLength = %@,(总长度:%@),packageIndex = %@,发送进度 = %@",@(location),@(oneTimeSize),@(totalLength),@(packageIndex),@(percent));
         [NSThread sleepForTimeInterval:0.05];
     }
     self.readyToSendImage = NO;
@@ -174,9 +169,6 @@ static NSString *const kAdIdentifyKey = @"B7A1";
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
 {
     if ([request.characteristic.UUID isEqual:[CBUUID UUIDWithString:kReadImageCharacteristicUUIDString]]) {
-//        NSString *mainString = [NSString stringWithFormat:@"GN123"];
-//        NSData *cmainData= [mainString dataUsingEncoding:NSUTF8StringEncoding];
-//        request.value = cmainData;
         [peripheral respondToRequest:request withResult:CBATTErrorSuccess];
         self.readyToSendImage = YES;
         self.isSending = YES;
